@@ -24,6 +24,14 @@ namespace Test_grafiek
     public MainWindow()
     {
       InitializeComponent();
+      DBConnection test = new DBConnection();
+      List<string>[] list = test.Select();
+
+      foreach (string hah in list[0])
+      {
+        he.Inlines.Add(hah);
+      }
+      //he.Text = Convert.ToString(list[0][0]);
       this.createGrid10x10();
 
     }

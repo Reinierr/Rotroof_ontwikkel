@@ -88,7 +88,7 @@ namespace Test_grafiek
     }
     public List<string>[] Select()
     {
-      string query = "SELECT * FROM tabel1";
+      string query = "SELECT Id , dagdeel FROM dagdeel";
 
       //Create a list to store the result
       List<string>[] list = new List<string>[3];
@@ -107,9 +107,8 @@ namespace Test_grafiek
         //Read the data and store them in the list
         while (dataReader.Read())
         {
-          list[0].Add(dataReader["id"] + "");
-          list[1].Add(dataReader["merk"] + "");
-
+          list[0].Add(dataReader["Id"] + "");
+          list[1].Add(dataReader["dagdeel"] + "");
         }
 
         //close Data Reader
