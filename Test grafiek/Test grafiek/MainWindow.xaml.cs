@@ -33,6 +33,19 @@ namespace Test_grafiek
         he.Inlines.Add(Convert.ToString(hah.dagdeel));
       }
       */
+
+    }
+    private void _canvasPlaceSingleColor(Canvas canvas, Color color, int height , int i)
+    {
+      Rectangle rect = new Rectangle();
+      Brush paint = new SolidColorBrush(color);
+      rect.Fill = paint;
+      rect.Width = 30;
+      rect.Height = height;
+      Canvas.SetLeft(rect, i*35);
+      Canvas.SetBottom(rect, 0);
+
+      myCanvas.Children.Add(rect);
     }
     private void _placeSingleColorColumn(Grid grid, Color color, int height, int colNum, int maxHeight)
     {
@@ -102,10 +115,10 @@ namespace Test_grafiek
 
 
           _placeSingleColorColumn(this.myGridMain, color, sr.Total/30, i, 10);
-        
-        
+        _canvasPlaceSingleColor(myCanvas, color, sr.Total,i);
 
-        i++;
+
+      i++;
       }
       
       string[] bLabels = "Jan,Feb,Mrt,Apr,Mei,Jun,Jul,Aug,Sep,Okt,Nov,Dec".Split(',');
