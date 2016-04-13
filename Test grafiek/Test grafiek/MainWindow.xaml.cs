@@ -35,17 +35,35 @@ namespace Test_grafiek
       */
 
     }
-    private void _canvasPlaceSingleColor(Canvas canvas, Color color, int height , int i)
+
+    // ultra custom graph Reinier check dit!!!
+    private void _canvasPlaceSingleColor(Canvas canvas, Color color, int height , int i, int col, string colName)
     {
+      //column
       Rectangle rect = new Rectangle();
       Brush paint = new SolidColorBrush(color);
       rect.Fill = paint;
-      rect.Width = 30;
+      rect.Width = 30;//canvas.Width / (col+1);
       rect.Height = height;
-      Canvas.SetLeft(rect, i*35);
-      Canvas.SetBottom(rect, 0);
+      Canvas.SetLeft(rect, (i+1)*(rect.Width+5));
+      Canvas.SetBottom(rect, 20);
+      // columnName
+      TextBlock txt = new TextBlock();
+      txt.Text = colName;
+      txt.HorizontalAlignment = HorizontalAlignment.Center;
+      Canvas.SetLeft(txt, (i+1) * (rect.Width+5));
+      Canvas.SetBottom(txt, 0);
+      
+      // columnInt
+      TextBlock txt2 = new TextBlock();
+      txt2.Text = Convert.ToString(height);
+      Canvas.SetLeft(txt2, 0);
+      Canvas.SetBottom(txt2, (height+10));
 
       myCanvas.Children.Add(rect);
+      myCanvas.Children.Add(txt);
+      myCanvas.Children.Add(txt2);
+
     }
     private void _placeSingleColorColumn(Grid grid, Color color, int height, int colNum, int maxHeight)
     {
@@ -115,7 +133,7 @@ namespace Test_grafiek
 
 
           _placeSingleColorColumn(this.myGridMain, color, sr.Total/30, i, 10);
-        _canvasPlaceSingleColor(myCanvas, color, sr.Total,i);
+        _canvasPlaceSingleColor(myCanvas, color, sr.Total , i , information.Count, sr.Maandnaam);
 
 
       i++;

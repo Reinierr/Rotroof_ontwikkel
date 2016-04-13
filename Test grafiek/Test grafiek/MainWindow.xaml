@@ -10,7 +10,7 @@
         <Grid Name="myGridLeft" Margin="7,10,693,49" />
         <Grid HorizontalAlignment="Left" Height="34" Margin="48,573,0,0" VerticalAlignment="Top" Width="678"  Name="myGridBottom" />
         <Grid HorizontalAlignment="Left" Height="558" Margin="48,10,0,0" VerticalAlignment="Top" Width="678" Background="White" Name="myGridMain"/>
-        <Canvas HorizontalAlignment="Left" Height="278" Margin="-452,24,0,0" VerticalAlignment="Top" Width="383" Name="myCanvas" Background="Aquamarine"/>
+        <Canvas HorizontalAlignment="Left" Height="278" Margin="-452,181,0,0" VerticalAlignment="Top" Width="500" Name="myCanvas" Background="Aquamarine"/>
     </Grid>
 
 </Window>
