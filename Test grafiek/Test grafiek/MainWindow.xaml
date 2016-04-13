@@ -10,11 +10,6 @@
         <Grid Name="myGridLeft" Margin="7,10,693,49" />
         <Grid HorizontalAlignment="Left" Height="34" Margin="48,573,0,0" VerticalAlignment="Top" Width="678"  Name="myGridBottom"/>
         <Grid HorizontalAlignment="Left" Height="558" Margin="48,10,0,0" VerticalAlignment="Top" Width="678" Background="White" Name="myGridMain"/>
-
-
-        <Grid Name="Hallo" HorizontalAlignment="Left" Background="Red" Width="300" Height="300">
-            <TextBlock Name="he"></TextBlock>
-        </Grid>
     </Grid>
     
 </Window>

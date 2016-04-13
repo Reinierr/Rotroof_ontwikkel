@@ -86,16 +86,13 @@ namespace Test_grafiek
         this.CloseConnection();
       }
     }
-    public List<string>[] Select()
+    public List<object>[] Select(string query)
     {
-      string query = "SELECT Id , dagdeel FROM dagdeel";
-
       //Create a list to store the result
-      List<string>[] list = new List<string>[3];
-      list[0] = new List<string>();
-      list[1] = new List<string>();
+      List<object>[] list = new List<object>[1];
+      list[0] = new List<object>();
 
-
+      
       //Open connection
       if (this.OpenConnection() == true)
       {
@@ -103,12 +100,15 @@ namespace Test_grafiek
         MySqlCommand cmd = new MySqlCommand(query, connection);
         //Create a data reader and Execute the command
         MySqlDataReader dataReader = cmd.ExecuteReader();
-
+        
         //Read the data and store them in the list
         while (dataReader.Read())
         {
-          list[0].Add(dataReader["Id"] + "");
-          list[1].Add(dataReader["dagdeel"] + "");
+          cstraatroof test = new cstraatroof();
+          test.Maandnaam = Convert.ToString(dataReader["Maandnaam"]);
+          test.Total = Convert.ToInt32(dataReader["TotalMaand"]);
+
+          list[0].Add(test);
         }
 
         //close Data Reader
@@ -139,4 +139,11 @@ namespace Test_grafiek
     }
 
 
-  } }
+  }
+  public class cstraatroof
+  {
+    public int Id { get; set; }
+    public int Total { get; set; }
+    public string Maandnaam { get; set; }
+  }
+}
