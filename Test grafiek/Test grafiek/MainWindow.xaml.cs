@@ -43,7 +43,7 @@ namespace Test_grafiek
       rect.Fill = brush;
       rect.Width = 50;
       Grid.SetColumn(rect, colNum);
-      Grid.SetRow(rect, Convert.ToInt32(hoog) - height);
+      Grid.SetRow(rect,maxHeight - height);
       Grid.SetRowSpan(rect, height);
 
       grid.Children.Add(rect);
@@ -86,7 +86,7 @@ namespace Test_grafiek
       // lengthe loop is array
       foreach (cstraatroof sr in information)
       {
-        string[] aLabels = "10,9,8,7,6,5,4,3,2,1".Split(',');
+        string[] aLabels = "300,270,240,210,180,150,120,90,60,30".Split(',');
         _createLabelsvert(this.myGridLeft, aLabels);
 
         ColumnDefinition colDef = new ColumnDefinition();
@@ -99,16 +99,16 @@ namespace Test_grafiek
 
         Color color = i % 2 == 0 ? (Color)ColorConverter.ConvertFromString("#AEAEAE") : (Color)ColorConverter.ConvertFromString("#EAEAEA");
 
-        if(sr.Maandnaam != "feb")
-        {
-          _placeSingleColorColumn(this.myGridMain, color, sr.Total, i, 300);
-        }
+
+
+          _placeSingleColorColumn(this.myGridMain, color, sr.Total/30, i, 10);
+        
         
 
         i++;
       }
       
-      string[] bLabels = "Dogs,Cats,Birds,Snakes,Rabbits,Hamsters,Horses,Rats,Bats,Unicorns".Split(',');
+      string[] bLabels = "Jan,Feb,Mrt,Apr,Mei,Jun,Jul,Aug,Sep,Okt,Nov,Dec".Split(',');
       _createLabelshor(this.myGridBottom, bLabels);
     }
   }
