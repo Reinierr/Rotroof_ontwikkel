@@ -6,11 +6,9 @@
         xmlns:local="clr-namespace:Test_grafiek"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
-    <Grid Margin="488,50,48,22">
-        <Grid Name="myGridLeft" Margin="7,10,693,49" />
-        <Grid HorizontalAlignment="Left" Height="34" Margin="48,573,0,0" VerticalAlignment="Top" Width="678"  Name="myGridBottom" />
-        <Grid HorizontalAlignment="Left" Height="558" Margin="48,10,0,0" VerticalAlignment="Top" Width="678" Background="White" Name="myGridMain"/>
-        <Canvas HorizontalAlignment="Left" Height="278" Margin="-452,181,0,0" VerticalAlignment="Top" Width="500" Name="myCanvas" Background="Aquamarine"/>
+    <Grid>
+        <Canvas HorizontalAlignment="Left" Height="278" Margin="26,110,0,0" VerticalAlignment="Top" Width="700" Name="myCanvas" />
+        <Canvas Height="300" Width="300" Margin="900,88,72,301" Name="myPyCanvas" />
     </Grid>
 
 </Window>

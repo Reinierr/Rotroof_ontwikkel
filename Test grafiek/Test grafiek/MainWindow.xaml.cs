@@ -25,8 +25,9 @@ namespace Test_grafiek
     {
       InitializeComponent();
       DBConnection test = new DBConnection();
-      List<object>[] information = test.Select("SELECT Maandnaam, Count(*) AS TotalMaand FROM straatroof WHERE Maandnaam IS NOT NULL group by Maandnaam");
-      this.createGrid10x10(information[0]);
+      List<object>[] information = test.Select("SELECT Maandnaam, Count(*) AS TotalMaand FROM straatroof WHERE Maandnaam IS NOT NULL and jaar = '2011'  group by Maandnaam");
+      this.createGraph(information[0]);
+      this.createPyChart();
       /*foreach (cdagdeel hah in list[0])
       {
         he.Inlines.Add(Convert.ToString(hah.Id));
@@ -43,104 +44,56 @@ namespace Test_grafiek
       Rectangle rect = new Rectangle();
       Brush paint = new SolidColorBrush(color);
       rect.Fill = paint;
-      rect.Width = 30;//canvas.Width / (col+1);
+      rect.Width = ((canvas.Width / (col+1))-2);
       rect.Height = height;
-      Canvas.SetLeft(rect, (i+1)*(rect.Width+5));
+      Canvas.SetLeft(rect, (i+1)*(rect.Width+2));
       Canvas.SetBottom(rect, 20);
+     
       // columnName
       TextBlock txt = new TextBlock();
       txt.Text = colName;
       txt.HorizontalAlignment = HorizontalAlignment.Center;
-      Canvas.SetLeft(txt, (i+1) * (rect.Width+5));
+      Canvas.SetLeft(txt, (i+1) * (rect.Width+2));
       Canvas.SetBottom(txt, 0);
       
       // columnInt
       TextBlock txt2 = new TextBlock();
       txt2.Text = Convert.ToString(height);
       Canvas.SetLeft(txt2, 0);
-      Canvas.SetBottom(txt2, (height+10));
+      Canvas.SetBottom(txt2, (height+20));
 
       myCanvas.Children.Add(rect);
       myCanvas.Children.Add(txt);
       myCanvas.Children.Add(txt2);
 
     }
-    private void _placeSingleColorColumn(Grid grid, Color color, int height, int colNum, int maxHeight)
+    private void _createPyChart(Canvas canvas, Color color)
     {
-      Brush brush = new SolidColorBrush(color);
-
-      Rectangle rect = new Rectangle();
-      double hoog = grid.Height;
-      rect.Fill = brush;
-      rect.Width = 50;
-      Grid.SetColumn(rect, colNum);
-      Grid.SetRow(rect,maxHeight - height);
-      Grid.SetRowSpan(rect, height);
-
-      grid.Children.Add(rect);
+      Ellipse circle = new Ellipse();
+      Brush paint = new SolidColorBrush(color);
+      circle.Fill = paint;
+      circle.Width = 100;
+      circle.Height = 100;
+      Canvas.SetLeft(circle, 150);
+      Canvas.SetBottom(circle, 150);
+      myPyCanvas.Children.Add(circle);
     }
-
-    private void _createLabelsvert(Grid grid, string[] labels)
+    
+    public void createGraph(List<object> information)
     {
-      RowDefinition rowDefnLabels = new RowDefinition();
-      grid.RowDefinitions.Add(rowDefnLabels);
-
-      for (int i = 0; i < labels.Length; i++)
-      {
-        TextBlock block = new TextBlock();
-        block.Text = labels[i];
-        block.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-        Grid.SetRow(block, i);
-        Grid.SetColumn(block, grid.ColumnDefinitions.Count);
-        grid.Children.Add(block);
-      }
-    }
-    private void _createLabelshor(Grid grid, string[] labels)
-    {
-      RowDefinition rowDefnLabels = new RowDefinition();
-      grid.RowDefinitions.Add(rowDefnLabels);
-
-      for (int i = 0; i < labels.Length; i++)
-      {
-        TextBlock block = new TextBlock();
-        block.Text = labels[i];
-        block.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-        Grid.SetColumn(block, i);
-        Grid.SetRow(block, grid.RowDefinitions.Count);
-        grid.Children.Add(block);
-      }
-    }
-    public void createGrid10x10(List<object> information)
-    {
-      Random random = new Random();
       int i = 0;
       // lengthe loop is array
       foreach (cstraatroof sr in information)
       {
-        string[] aLabels = "300,270,240,210,180,150,120,90,60,30".Split(',');
-        _createLabelsvert(this.myGridLeft, aLabels);
-
-        ColumnDefinition colDef = new ColumnDefinition();
-        ColumnDefinition colDef2 = new ColumnDefinition();
-        myGridMain.ColumnDefinitions.Add(colDef);
-        myGridBottom.ColumnDefinitions.Add(colDef2);
-
-        RowDefinition rowDef = new RowDefinition();
-        myGridMain.RowDefinitions.Add(rowDef);
-
         Color color = i % 2 == 0 ? (Color)ColorConverter.ConvertFromString("#AEAEAE") : (Color)ColorConverter.ConvertFromString("#EAEAEA");
-
-
-
-          _placeSingleColorColumn(this.myGridMain, color, sr.Total/30, i, 10);
         _canvasPlaceSingleColor(myCanvas, color, sr.Total , i , information.Count, sr.Maandnaam);
-
-
-      i++;
-      }
-      
-      string[] bLabels = "Jan,Feb,Mrt,Apr,Mei,Jun,Jul,Aug,Sep,Okt,Nov,Dec".Split(',');
-      _createLabelshor(this.myGridBottom, bLabels);
+        i++;
+      }   
+    }
+    public void createPyChart()
+    {
+      Color color = (Color)ColorConverter.ConvertFromString("#EAEAEA");
+      _createPyChart(myPyCanvas, color);
     }
   }
 
