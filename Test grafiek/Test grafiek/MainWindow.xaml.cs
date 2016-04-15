@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace Test_grafiek
+
+namespace grafiek
 {
   /// <summary>
   /// Interaction logic for MainWindow.xaml
@@ -25,9 +26,8 @@ namespace Test_grafiek
     {
       InitializeComponent();
       DBConnection test = new DBConnection();
-      List<object>[] information = test.Select("SELECT Maandnaam, Count(*) AS TotalMaand FROM straatroof WHERE Maandnaam IS NOT NULL and jaar = '2011'  group by Maandnaam");
+      List<object>[] information = test.Select("SELECT Maandnaam, Count(*) AS TotalMaand FROM straatroof WHERE Maandnaam IS NOT NULL and jaar = '2012'  group by Maandnaam");
       this.createGraph(information[0]);
-      this.createPyChart();
       /*foreach (cdagdeel hah in list[0])
       {
         he.Inlines.Add(Convert.ToString(hah.Id));
@@ -38,7 +38,7 @@ namespace Test_grafiek
     }
 
     // ultra custom graph Reinier check dit!!!
-    private void _canvasPlaceSingleColor(Canvas canvas, Color color, int height , int i, int col, string colName)
+    private void _canvasPlaceSingleColor(Canvas canvas, Color color, int height , int i, int col, string colName, int max , int min)
     {
       //column
       Rectangle rect = new Rectangle();
@@ -64,8 +64,10 @@ namespace Test_grafiek
 
       myCanvas.Children.Add(rect);
       myCanvas.Children.Add(txt);
-      myCanvas.Children.Add(txt2);
-
+      if (rect.Height == max || rect.Height == min)
+      {
+        myCanvas.Children.Add(txt2);
+      }
     }
     private void _createPyChart(Canvas canvas, Color color)
     {
@@ -82,20 +84,30 @@ namespace Test_grafiek
     public void createGraph(List<object> information)
     {
       int i = 0;
+      int min=999999;
+      int max=0;
       // lengthe loop is array
       foreach (cstraatroof sr in information)
       {
+        if (sr.Total > max)
+        {
+          max = sr.Total;
+        }
+        if (sr.Total < min)
+        {
+          min = sr.Total;
+        }
+      }
+      foreach (cstraatroof sr in information)
+      {
         Color color = i % 2 == 0 ? (Color)ColorConverter.ConvertFromString("#AEAEAE") : (Color)ColorConverter.ConvertFromString("#EAEAEA");
-        _canvasPlaceSingleColor(myCanvas, color, sr.Total , i , information.Count, sr.Maandnaam);
+        _canvasPlaceSingleColor(myCanvas, color, sr.Total, i, information.Count, sr.Maandnaam, max, min);
         i++;
-      }   
+      }
     }
-    public void createPyChart()
+    public void pieChart()
     {
-      Color color = (Color)ColorConverter.ConvertFromString("#EAEAEA");
-      _createPyChart(myPyCanvas, color);
+
     }
   }
-
-
 }
